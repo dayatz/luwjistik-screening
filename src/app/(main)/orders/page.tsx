@@ -1,40 +1,33 @@
 import { FiPlus } from 'react-icons/fi'
 
-import OrderService from "~/services/order.service"
-import Today from "./components/Today"
+// import OrderService from "~/services/order.service"
 import Button from "~/components/Button"
-
-const orders = [
-  {
-    "TrackingNumber": "c10f0ecf-c505-4753-a3f1-f5e00bd04089",
-    "ConsigneeAddress": "Something something street 22",
-    "ConsigneeName": "Jon",
-    "ConsigneeNumber": "12345678",
-    "ConsigneeCity": "Singapore",
-    "ConsigneeProvince": "Singapore",
-    "ConsigneePostalCode": "12345",
-    "ConsigneeCountry": "SG",
-    "PaymentType": "cod",
-    "Weight": 2.2,
-    "Height": 1.2,
-    "Width": 1,
-    "Length": 4.5
-  }
-]
-
+import OrderTable from './components/OrderTable'
+import Card from '~/components/Card'
+import Link from 'next/link'
 
 export default function OrdersPage() {
   return (
-    <main>
-      <div className="flex justify-between items-center">
-        <div>
-          <h1>Orders</h1>
-          <Today />
+    <main className='max-w-7xl mx-auto space-y-8'>
+      <div className="flex items-center">
+        <h1 className='text-3xl font-bold'>Orders</h1>
+
+        <div className='ml-auto flex gap-4 items-center'>
+          <div>
+            filters
+          </div>
+          <Button variant="primary" className='p-0'>
+            <Link href='/orders/new' className='flex py-2 px-4'>
+              <FiPlus size={18} /> New Order
+            </Link>
+          </Button>
         </div>
-        <Button variant="primary">
-          <FiPlus size={18} /> New Order
-        </Button>
       </div>
+
+      <Card>
+        <OrderTable />
+      </Card>
     </main>
   )
 }
+

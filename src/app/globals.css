@@ -9,8 +9,14 @@ html, body {
 :root {
   --bg-color: #f7f7f7;
   --primary-color: #1961e4;
+  --primary-color-h: #055bf8;
 }
 
 body {
   background-color: var(--bg-color);
+}
+
+main {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
 }

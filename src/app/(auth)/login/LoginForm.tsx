@@ -5,7 +5,6 @@ import { useRouter } from "next/navigation";
 
 import Input from "~/components/Input";
 import Button from "~/components/Button";
-import FieldMessage from "~/components/FieldMessage";
 import AuthService from "~/services/auth.service";
 import React from "react";
 
@@ -17,10 +16,9 @@ type FormValues = {
 
 export default function LoginForm() {
   const router = useRouter()
-  const [submitError, setSubmitError] = React.useState(true)
+  const [submitError, setSubmitError] = React.useState(false)
 
-  const { handleSubmit, register, formState: {
-    errors, isSubmitting
+  const { handleSubmit, register, formState: { isSubmitting
   } } = useForm<FormValues>()
 
   const onSubmit = async ({ username, password }: FormValues) => {

@@ -10,7 +10,7 @@ type ButtonProps = {
 const variantClasses: { [k in Variant]: string } = {
   "default": "",
   "outline": "border-2 border-[var(--primary-color)] text-[var(--color-primary)]",
-  "primary": "bg-[var(--primary-color)] text-gray-200 hover:bg-[var(--primary-color)]/80"
+  "primary": "bg-[var(--primary-color)] text-gray-200 hover:bg-[var(--primary-color-h)]"
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(

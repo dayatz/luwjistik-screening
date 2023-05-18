@@ -4,8 +4,9 @@ import { Plus_Jakarta_Sans } from 'next/font/google'
 import { redirect } from 'next/navigation'
 
 import Providers from '~/components/Providers'
+import Navbar from '~/components/Navbar'
 
-const font = Plus_Jakarta_Sans({ subsets: ['latin'] })
+const font = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '600', '700'] })
 
 export const metadata = {
   title: 'Luwjistik',
@@ -26,6 +27,7 @@ export default async function RootLayout({
     <html lang="en">
       <body className={font.className}>
         <Providers>
+          <Navbar />
           {children}
         </Providers>
       </body>
