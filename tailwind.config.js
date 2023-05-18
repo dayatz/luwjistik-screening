@@ -15,4 +15,14 @@ module.exports = {
     },
   },
   plugins: [],
+  safelist: [
+    'bg-red-700',
+    'bg-lime-500',
+    'bg-green-700',
+    'bg-emerald-800',
+    'text-red-700',
+    'text-lime-500',
+    'text-green-700',
+    'text-emerald-800',
+  ]
 }
