@@ -2,11 +2,12 @@
 import Input from '~/components/Input'
 import PaymentChoice from './PaymentChoice'
 import { RegisterOptions, useForm } from 'react-hook-form'
-import { Order } from '~/services/order.type'
 import Button from '~/components/Button'
 import FieldMessage from '~/components/FieldMessage'
-import OrderService from '~/services/order.service'
 import { useRouter } from 'next/navigation'
+import { Order } from '~/types/order.type'
+import { createOrder } from '../order.service'
+import { toast } from 'react-hot-toast'
 
 type FormValues = Omit<Order, 'TrackingNumber'>
 
@@ -21,8 +22,9 @@ export default function NewOrderForm() {
   })
   const onSubmit = async (values: FormValues) => {
     console.log({ values })
-    const result = await OrderService.createOrder(values)
+    const result = await createOrder(values)
     console.log(result)
+    toast.success("Order successfully created.")
     router.push('/orders')
   }
 

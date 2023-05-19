@@ -1,6 +1,5 @@
 import { FiPlus } from 'react-icons/fi'
 
-// import OrderService from "~/services/order.service"
 import Button from "~/components/Button"
 import OrderTable from './components/OrderTable'
 import Card from '~/components/Card'
@@ -25,6 +24,7 @@ export default function OrdersPage() {
       </div>
 
       <Card>
+        {/* @ts-expect-error Async Server Component */}
         <OrderTable />
       </Card>
     </main>

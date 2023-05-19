@@ -11,7 +11,6 @@ const authOptions: AuthOptions = {
         password: { type: 'password' }
       },
       async authorize(creds) {
-        console.log(creds)
         if (!creds?.username || !creds.password) {
           throw new Error('invalid credentials.')
         }
@@ -37,12 +36,20 @@ const authOptions: AuthOptions = {
           name: jsonData.user,
           sessionToken: jsonData.session,
         }
+        console.log('------- authorize()')
         console.log(user)
-        console.log('----')
         return user
       }
     })
-  ]
+  ],
+  callbacks: {
+    session({ session, token, ...rest}) {
+      console.log('------------- session callback')
+      console.log({ session, rest })
+      session.user.sessionToken = token.sub 
+      return session
+    }
+  }
 }
 
 const handler = NextAuth(authOptions)

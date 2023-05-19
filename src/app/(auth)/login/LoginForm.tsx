@@ -7,6 +7,7 @@ import Input from "~/components/Input";
 import Button from "~/components/Button";
 import AuthService from "~/services/auth.service";
 import React from "react";
+import FieldMessage from "~/components/FieldMessage";
 
 
 type FormValues = {
@@ -18,12 +19,11 @@ export default function LoginForm() {
   const router = useRouter()
   const [submitError, setSubmitError] = React.useState(false)
 
-  const { handleSubmit, register, formState: { isSubmitting
+  const { handleSubmit, register, formState: { isSubmitting, errors
   } } = useForm<FormValues>()
 
   const onSubmit = async ({ username, password }: FormValues) => {
     setSubmitError(false)
-    console.log({ username, password })
     const result = await AuthService.login({
       username, password
     })
@@ -38,11 +38,13 @@ export default function LoginForm() {
     <form onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col">
         <label htmlFor="username" className="text-gray-700 mb-1">Username</label>
-        <Input id="username" type="text" {...register('username', { required: 'This field is required' })} />
+        <Input id="username" type="text" {...register('username', { required: 'This field is required' })} hasError={!!errors.username} />
+        <FieldMessage variant="error" message={errors.username?.message} />
       </div>
       <div className="flex flex-col mt-4">
         <label htmlFor="password" className="text-gray-700 mb-1">Password</label>
-        <Input id="password" type="password" {...register('password', { required: 'This field is required' })} />
+        <Input id="password" type="password" {...register('password', { required: 'This field is required' })} hasError={!!errors.password} />
+        <FieldMessage variant="error" message={errors.password?.message} />
       </div>
       {
         submitError && (

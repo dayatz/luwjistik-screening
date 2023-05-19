@@ -1,5 +1,7 @@
 export default async function Home() {
   return (
-    <main>home</main>
+    <main className="max-w-7xl mx-auto">
+      Dashboard
+    </main>
   )
 }

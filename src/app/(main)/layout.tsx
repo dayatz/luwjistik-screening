@@ -5,6 +5,7 @@ import { redirect } from 'next/navigation'
 
 import Providers from '~/components/Providers'
 import Navbar from '~/components/Navbar'
+import ToasterClient from '~/components/ToasterClient'
 
 const font = Plus_Jakarta_Sans({ subsets: ['latin'], weight: ['400', '600', '700'] })
 
@@ -17,19 +18,21 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode
 }) {
-  // const session = await getServerSession()
-  // console.log(session)
-  // if (!session?.user) {
-  //   return redirect('/login')
-  // }
+  const session = await getServerSession()
+  console.log(session)
+  if (!session?.user) {
+    return redirect('/login')
+  }
 
   return (
     <html lang="en">
       <body className={font.className}>
-        <Providers>
-          <Navbar />
-          {children}
-        </Providers>
+        <ToasterClient>
+          <Providers>
+            <Navbar />
+            {children}
+          </Providers>
+        </ToasterClient>
       </body>
     </html>
   )

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import ActiveLink from './ActiveLink'
-import { FiUser } from 'react-icons/fi'
+import LogoutButton from './LogoutButton'
 
 
 export default function Navbar() {
@@ -13,16 +13,14 @@ export default function Navbar() {
         </Link>
 
         <div className='h-full ml-8 w-full flex'>
-          <ActiveLink href="/" title="Dashboard" />
+          <ActiveLink href="/" title="Dashboard" exact />
           <ActiveLink href="/orders" title="Orders" />
-          <ActiveLink href="/shipping-partners" title="Shipping Partners" />
+          <ActiveLink href="/shipping-partners" title="Shipping Partners"/>
           <ActiveLink href="/reports" title="Reports" />
           <ActiveLink href="/billings" title="Billings" />
 
           <div className='ml-auto grid place-items-center'>
-            <div className='rounded-full p-2 border border-slate-200 bg-white hover:bg-slate-100 transition-colors'>
-              <FiUser size={28} />
-            </div>
+            <LogoutButton />
           </div>
         </div>
       </div>

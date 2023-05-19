@@ -7,12 +7,16 @@ import { cn } from "~/lib/utils";
 type Props = {
   href: string
   title: string
+  exact?: boolean
 }
 
-export default function ActiveLink({ href, title }: Props) {
+export default function ActiveLink({ href, title, exact }: Props) {
   const pathname = usePathname()
-  const isActive = pathname == href
 
+  let isActive = pathname.startsWith(href) 
+  if (exact) {
+    isActive = pathname == href
+  }
   return (
     <Link href={href} className={cn(
       'h-full grid place-items-center px-6 hover:bg-slate-50 border-b-2 transition-colors',
