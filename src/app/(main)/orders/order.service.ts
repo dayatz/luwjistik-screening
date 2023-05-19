@@ -33,7 +33,11 @@ export async function createOrder(order: OrderCreateType) {
     Height: Number(order.Height),
   }
   const requestData = JSON.stringify(parsedOrder)
-  const response = await fetch(`${BACKEND_URL}/orders`, {
+  const url = `${BACKEND_URL}/orders`
+  console.log('-------------')
+  console.log('sending request to', url)
+  console.log(requestData)
+  const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
