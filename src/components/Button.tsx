@@ -1,7 +1,7 @@
 import React from "react"
 import { cn } from "~/lib/utils"
 
-type Variant = "default" | "primary" | "outline"
+type Variant = "default" | "primary" | "outline" | "danger"
 type Size = "large" | "medium" | "small"
 
 type ButtonProps = {
@@ -12,7 +12,8 @@ type ButtonProps = {
 const variantClasses: { [k in Variant]: string } = {
   "default": "hover:bg-slate-100",
   "outline": "border-2 border-[var(--primary-color)] text-[var(--color-primary)]",
-  "primary": "bg-[var(--primary-color)] text-gray-100 hover:bg-[var(--primary-color-h)]"
+  "primary": "bg-[var(--primary-color)] text-gray-100 hover:bg-[var(--primary-color-h)]",
+  "danger": "bg-red-400 text-slate-100"
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
