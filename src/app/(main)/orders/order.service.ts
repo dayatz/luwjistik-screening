@@ -1,5 +1,6 @@
 'use server';
 
+import { revalidatePath } from "next/cache";
 import AuthService from "~/app/(auth)/auth.service";
 import { BACKEND_URL } from "~/config"
 import { Order, OrderCreateType } from "~/types/order.type";
@@ -16,8 +17,8 @@ export async function getOrders() {
     throw new Error(response.statusText)
   }
   const jsonData = await response.json()
-  // const data = (jsonData.data || []) as Order[]
-  const data = jsonData
+  const data = (jsonData.data || []) as Order[]
+  // const data = jsonData
   return data
 }
 
@@ -43,6 +44,7 @@ export async function createOrder(order: OrderCreateType) {
   if (!response.ok) {
     throw new Error(await response.text())
   }
+  revalidatePath('/orders')
   const jsonData = await response.json()
   return jsonData
 }
