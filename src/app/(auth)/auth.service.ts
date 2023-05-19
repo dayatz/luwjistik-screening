@@ -9,8 +9,8 @@ type Creds = {
 }
 
 const AuthService = {
-  login({ username, password }: Creds) {
-    const result = signIn('credentials', {
+  async login({ username, password }: Creds) {
+    const result = await signIn('credentials', {
       redirect: false,
       username, password
     })

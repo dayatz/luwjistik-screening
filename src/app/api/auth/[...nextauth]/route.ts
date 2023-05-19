@@ -31,6 +31,8 @@ export const authOptions: AuthOptions = {
           throw new Error('invalid credentials.')
         }
         const jsonData = await response.json()
+        console.log('-----------login response', BACKEND_URL)
+        console.log(jsonData)
         const user = {
           id: jsonData.session,
           name: jsonData.user,

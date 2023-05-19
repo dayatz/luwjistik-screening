@@ -27,6 +27,7 @@ export default function LoginForm() {
     const result = await AuthService.login({
       username, password
     })
+    console.log(result)
     if (result?.ok && !result.error) {
       router.replace('/')
       return
