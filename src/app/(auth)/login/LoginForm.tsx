@@ -5,9 +5,9 @@ import { useRouter } from "next/navigation";
 
 import Input from "~/components/Input";
 import Button from "~/components/Button";
-import AuthService from "~/services/auth.service";
 import React from "react";
 import FieldMessage from "~/components/FieldMessage";
+import AuthService from "../auth.service";
 
 
 type FormValues = {
