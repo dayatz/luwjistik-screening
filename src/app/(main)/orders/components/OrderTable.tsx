@@ -1,4 +1,4 @@
-import { FiCreditCard, FiTruck } from "react-icons/fi"
+import { FiArrowDown, FiCreditCard, FiMoreVertical, FiNavigation, FiPlusSquare, FiTruck } from "react-icons/fi"
 import {
   Table,
   TableBody,
@@ -7,9 +7,9 @@ import {
   TableHeader,
   TableRow,
 } from "~/components/Table"
-import { getOrders } from "../order.service"
 import { Order } from "~/types/order.type"
 import EmptyData from "~/components/EmptyData"
+import Button from "~/components/Button"
 
 const countryMapping: {
   [key: string]: {
@@ -42,17 +42,7 @@ const countryMapping: {
 //   }
 // ]
 
-let orders: Order[] = []
-export default async function OrderTable() {
-  try {
-    orders = await getOrders()
-  } catch(error) {
-    console.log(error)
-    return (
-      <EmptyData />
-    )
-  }
-
+export default function OrderTable({ orders }: { orders: Order[] }) {
   if (!orders.length) return <EmptyData />
 
   return (
@@ -63,6 +53,7 @@ export default async function OrderTable() {
           <TableHead>Consignee Country</TableHead>
           <TableHead>Consignee Contact</TableHead>
           <TableHead>Payment Type</TableHead>
+          <TableHead>Actions</TableHead>
         </TableRow>
       </TableHeader>
       <TableBody>
@@ -71,7 +62,10 @@ export default async function OrderTable() {
           const phoneNumber = `${countryInfo.phoneCode ? `(${countryInfo.phoneCode}) `:''}${order.ConsigneeNumber}`
           return (
             <TableRow key={order.TrackingNumber}>
-              <TableCell className="font-medium">{order.TrackingNumber}</TableCell>
+              <TableCell className="font-medium space-x-2">
+                <Button size="small"><FiPlusSquare size={16} /></Button>
+                <span>{order.TrackingNumber}</span>
+              </TableCell>
               <TableCell>{countryInfo.name ?? order.ConsigneeCountry}</TableCell>
               <TableCell>
                 <p className="mb-0">{order.ConsigneeName}</p>
@@ -79,6 +73,20 @@ export default async function OrderTable() {
               </TableCell>
               <TableCell>
                 <PaymentType paymentType={['cod', 'prepaid'].includes(order.PaymentType) ? order.PaymentType : 'cod'} />
+              </TableCell>
+              <TableCell>
+                <div className="flex gap-2">
+                  <Button size="small">Print</Button>
+
+                  <a href="https://v2.luwjistik.io/tracking" target="_blank" title="Track">
+                    <Button size="small">
+                      <FiNavigation size={16} />
+                    </Button>
+                  </a>
+                  <Button size="small">
+                    <FiMoreVertical size={16} />
+                  </Button>
+                </div>
               </TableCell>
             </TableRow>
           )

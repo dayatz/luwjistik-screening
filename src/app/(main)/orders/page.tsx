@@ -1,12 +1,22 @@
+import Link from 'next/link'
 import { FiPlus } from 'react-icons/fi'
 
 import Button from "~/components/Button"
 import OrderTable from './components/OrderTable'
 import Card from '~/components/Card'
-import Link from 'next/link'
 import OrderPagination from './components/OrderPagination'
 
-export default function OrdersPage() {
+import { getOrders } from './order.service'
+import { Order } from '~/types/order.type'
+
+let orders: Order[] = []
+export default async function OrdersPage() {
+  try {
+    orders = await getOrders()
+  } catch (error) {
+    console.log(error)
+  }
+
   return (
     <main className='max-w-7xl mx-auto space-y-8'>
       <div className="flex items-center">
@@ -22,14 +32,17 @@ export default function OrdersPage() {
       </div>
 
       <Card>
-        {/* @ts-expect-error Async Server Component */}
-        <OrderTable />
+        <OrderTable orders={orders} />
       </Card>
 
-      <div className='flex justify-between'>
-        <div></div>
-        <OrderPagination />
-      </div>
+      {
+        !!orders.length && (
+          <div className='flex justify-between'>
+            <div></div>
+            <OrderPagination />
+          </div>
+        )
+      }
     </main>
   )
 }

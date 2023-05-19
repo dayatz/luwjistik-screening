@@ -1,14 +1,16 @@
 'use client'
-import Input from '~/components/Input'
-import PaymentChoice from './PaymentChoice'
+import React from 'react'
+import { useRouter } from 'next/navigation'
 import { RegisterOptions, useForm } from 'react-hook-form'
+import { toast } from 'react-hot-toast'
+
+import Input from '~/components/Input'
 import Button from '~/components/Button'
 import FieldMessage from '~/components/FieldMessage'
-import { useRouter } from 'next/navigation'
-import { Order } from '~/types/order.type'
-import { toast } from 'react-hot-toast'
-import React from 'react'
 import Message from '~/components/Message'
+
+import PaymentChoice from './PaymentChoice'
+import { Order } from '~/types/order.type'
 
 type FormValues = Omit<Order, 'TrackingNumber'>
 

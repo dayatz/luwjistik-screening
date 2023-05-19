@@ -16,7 +16,8 @@ export async function getOrders() {
     throw new Error(response.statusText)
   }
   const jsonData = await response.json()
-  const data = (jsonData.data || []) as Order[]
+  // const data = (jsonData.data || []) as Order[]
+  const data = jsonData
   return data
 }
 
