@@ -18,4 +18,6 @@ const FieldMessage = React.forwardRef<HTMLDivElement, Props>(({
   )
 })
 
+FieldMessage.displayName = 'FieldMessage'
+
 export default FieldMessage
