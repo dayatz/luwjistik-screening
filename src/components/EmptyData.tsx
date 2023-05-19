@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-export default function() {
+export default function EmptyData() {
   return (
     <div className="flex flex-col items-center p-10 gap-4">
       <Image src={'/empty_data_icon.svg'} width={215} height={60} alt="empty data" />
@@ -8,3 +8,5 @@ export default function() {
     </div>
   )
 }
+
+EmptyData.displayName = "EmptyData"

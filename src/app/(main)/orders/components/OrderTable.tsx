@@ -44,7 +44,7 @@ export default function OrderTable({ orders }: { orders: Order[] }) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {orders.map((order) => <OrderRow order={order} />)}
+        {orders.map((order) => <OrderRow key={order.TrackingNumber} order={order} />)}
       </TableBody>
     </Table>
   )
