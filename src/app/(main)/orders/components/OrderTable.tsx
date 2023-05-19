@@ -8,6 +8,8 @@ import {
   TableRow,
 } from "~/components/Table"
 import { getOrders } from "../order.service"
+import { Order } from "~/types/order.type"
+import EmptyData from "~/components/EmptyData"
 
 const countryMapping: {
   [key: string]: {
@@ -40,8 +42,19 @@ const countryMapping: {
 //   }
 // ]
 
+let orders: Order[] = []
 export default async function OrderTable() {
-  const orders = await getOrders()
+  try {
+    orders = await getOrders()
+  } catch(error) {
+    console.log(error)
+    return (
+      <EmptyData />
+    )
+  }
+
+  if (!orders.length) return <EmptyData />
+
   return (
     <Table>
       <TableHeader>

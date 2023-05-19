@@ -3,7 +3,7 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { BACKEND_URL } from '~/config'
 
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   providers: [
     CredentialsProvider({
       credentials: {
@@ -43,10 +43,12 @@ const authOptions: AuthOptions = {
     })
   ],
   callbacks: {
-    session({ session, token, ...rest}) {
+    session({ session, token, user }) {
       console.log('------------- session callback')
-      console.log({ session, rest })
-      session.user.sessionToken = token.sub 
+      console.log({ session, token, user })
+      // session.user.sessionToken = token.sub 
+      session.user.sessionToken = token.sub
+      console.log(session)
       return session
     }
   }

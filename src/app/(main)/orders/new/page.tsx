@@ -2,6 +2,7 @@ import Link from "next/link"
 import { FiArrowLeft } from "react-icons/fi"
 import Card from "~/components/Card"
 import NewOrderForm from "./NewOrderForm"
+import { createOrder } from "../order.service"
 
 export default function NewOrderPage() {
   return (
@@ -14,7 +15,7 @@ export default function NewOrderPage() {
       </div>
 
       <Card>
-        <NewOrderForm />
+        <NewOrderForm createOrderAction={createOrder} />
       </Card>
     </main>
   )

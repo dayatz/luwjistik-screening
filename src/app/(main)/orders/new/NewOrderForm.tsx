@@ -6,14 +6,18 @@ import Button from '~/components/Button'
 import FieldMessage from '~/components/FieldMessage'
 import { useRouter } from 'next/navigation'
 import { Order } from '~/types/order.type'
-import { createOrder } from '../order.service'
 import { toast } from 'react-hot-toast'
+import React from 'react'
+import Message from '~/components/Message'
 
 type FormValues = Omit<Order, 'TrackingNumber'>
 
 const requiredText = "This field is required."
 
-export default function NewOrderForm() {
+export default function NewOrderForm({ createOrderAction }: {
+  createOrderAction: (order: FormValues) => Promise<Order[]>
+}) {
+  const [submitError, setSubmitError] = React.useState(false)
   const router = useRouter()
   const { handleSubmit, register, watch, setValue, formState: { errors, isSubmitting } } = useForm<FormValues>({
     defaultValues: {
@@ -22,14 +26,19 @@ export default function NewOrderForm() {
   })
   const onSubmit = async (values: FormValues) => {
     console.log({ values })
-    const result = await createOrder(values)
-    console.log(result)
-    toast.success("Order successfully created.")
-    router.push('/orders')
+    setSubmitError(false)
+    try {
+      const result = await createOrderAction(values)
+      console.log(result)
+      toast.success("Order successfully created.")
+      router.push('/orders')
+    } catch (err) {
+      console.log(err)
+      setSubmitError(true)
+    }
   }
 
   const paymentType = watch('PaymentType')
-  console.log(errors)
 
   const makeField = (fieldName: keyof FormValues, label: string, registerOption?: RegisterOptions<FormValues>) => {
     return (
@@ -62,8 +71,7 @@ export default function NewOrderForm() {
             {makeField('ConsigneeNumber', 'Phone Number')}
           </div>
           <div>
-            <label htmlFor="country" className='leading-8 text-sm'>Country</label>
-            <Input />
+            {makeField('ConsigneeCountry', 'Country')}
           </div>
           <div>
             {makeField('ConsigneePostalCode', 'Postal Code')}
@@ -106,8 +114,10 @@ export default function NewOrderForm() {
         </div>
       </div>
 
+      <Message variant="error" show={submitError} />
+
       <Button disabled={isSubmitting} type='submit' variant='primary'>
-        {isSubmitting ? 'Creating Order...': 'Create Order' }
+        {isSubmitting ? 'Creating Order...' : 'Create Order'}
       </Button>
     </form>
   )

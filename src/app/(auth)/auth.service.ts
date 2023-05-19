@@ -1,6 +1,7 @@
 import { getServerSession } from 'next-auth'
 import { signIn, signOut } from 'next-auth/react'
 import { redirect } from 'next/navigation'
+import { authOptions } from '../api/auth/[...nextauth]/route'
 
 type Creds = {
   username: string
@@ -21,7 +22,10 @@ const AuthService = {
   },
 
   async getUser() {
-    const session = await getServerSession()
+    const session = await getServerSession(authOptions)
+    console.log('----getUser()')
+    console.log(session)
+    console.log('------------')
     return session?.user ?? redirect('/')
   },
 

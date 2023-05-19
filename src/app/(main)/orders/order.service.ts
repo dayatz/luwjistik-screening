@@ -16,21 +16,28 @@ export async function getOrders() {
     throw new Error(response.statusText)
   }
   const jsonData = await response.json()
-  return jsonData as Order[]
+  const data = (jsonData.data || []) as Order[]
+  return data
 }
 
 export async function createOrder(order: OrderCreateType) {
-  console.log('--------- createOrder()')
-  console.log(order)
-  // const sessionToken = await AuthService.getSessionToken()
-  const sessionToken = 'x'
+  const sessionToken = await AuthService.getSessionToken()
+
+  const parsedOrder: OrderCreateType = {
+    ...order,
+    Weight: Number(order.Weight),
+    Length: Number(order.Length),
+    Width: Number(order.Width),
+    Height: Number(order.Height),
+  }
+  const requestData = JSON.stringify(parsedOrder)
   const response = await fetch(`${BACKEND_URL}/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'Authorization': sessionToken
     },
-    body: JSON.stringify(order)
+    body: requestData 
   })
   if (!response.ok) {
     throw new Error(await response.text())
